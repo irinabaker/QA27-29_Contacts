@@ -3,10 +3,13 @@ package com.telrun.contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TestBase {
@@ -60,7 +63,24 @@ public class TestBase {
         click(By.xpath("//button[contains(.,'Login')]"));
     }
 
-    public boolean isSignOutButtonPresent() {
+    public boolean isLoginLinkPresent() {
         return isElementPresent(By.xpath("//a[contains(.,'LOGIN')]"));
+    }
+
+    public void clickWithAction(By save) {
+        Actions actions = new Actions(driver);
+        WebElement element = driver.findElement(save);
+
+        actions.moveToElement(element).perform();
+        element.click();
+    }
+
+    public boolean isContactCreated(String text) {
+        List<WebElement> contacts = driver.findElements(By.cssSelector("h2"));
+        for (WebElement el : contacts) {
+            if (el.getText().contains(text))
+                return true;
+        }
+        return false;
     }
 }

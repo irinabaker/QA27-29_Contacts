@@ -9,7 +9,7 @@ public class LoginTests extends TestBase{
 
     @BeforeMethod
     public void ensurePrecondition() {
-        if (!isSignOutButtonPresent()) {
+        if (!isLoginLinkPresent()) {
             click(By.xpath("//button[contains(.,'Sign Out')]"));
         }
     }

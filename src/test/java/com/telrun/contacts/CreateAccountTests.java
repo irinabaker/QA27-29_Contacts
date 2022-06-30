@@ -10,7 +10,7 @@ public class CreateAccountTests extends TestBase{
     //precondition: user should be logged out
     @BeforeMethod
     public void ensurePrecondition() {
-        if (!isSignOutButtonPresent()) {
+        if (!isLoginLinkPresent()) {
             click(By.xpath("//button[contains(.,'Sign Out')]"));
         }
     }
