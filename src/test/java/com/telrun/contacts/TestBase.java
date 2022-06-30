@@ -42,4 +42,25 @@ public class TestBase {
     public void tearDown() {
         driver.quit();
     }
+
+    public void type(By locator, String text) {
+        click(locator);
+        driver.findElement(locator).clear();
+        driver.findElement(locator).sendKeys(text);
+    }
+
+    public void click(By locator) {
+        driver.findElement(locator).click();
+    }
+
+    public void login() {
+        click(By.xpath("//a[contains(.,'LOGIN')]"));
+        type(By.cssSelector("[placeholder='Email']"), "jesse+982@mail.ru");
+        type(By.cssSelector("[placeholder='Password']"), "Jesse_12345");
+        click(By.xpath("//button[contains(.,'Login')]"));
+    }
+
+    public boolean isSignOutButtonPresent() {
+        return isElementPresent(By.xpath("//a[contains(.,'LOGIN')]"));
+    }
 }
