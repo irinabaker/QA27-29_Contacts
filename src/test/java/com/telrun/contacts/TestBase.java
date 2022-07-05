@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -58,8 +59,7 @@ public class TestBase {
 
     public void login() {
         click(By.xpath("//a[contains(.,'LOGIN')]"));
-        type(By.cssSelector("[placeholder='Email']"), "jesse+982@mail.ru");
-        type(By.cssSelector("[placeholder='Password']"), "Jesse_12345");
+        fillLoginRegistrationForm(new User().setEmail("jesse+982@mail.ru").setPassword("Jesse_12345"));
         click(By.xpath("//button[contains(.,'Login')]"));
     }
 
@@ -82,5 +82,64 @@ public class TestBase {
                 return true;
         }
         return false;
+    }
+
+    public void addContact() {
+        int i = (int) ((System.currentTimeMillis()) / 1000) % 3600;
+        click(By.xpath("//a[contains(text(),'ADD')]"));
+        type(By.cssSelector("input:nth-child(1)"), "Karl");
+        type(By.cssSelector("input:nth-child(2)"), "Adam");
+        type(By.cssSelector("input:nth-child(3)"), "1234567" + i);
+        type(By.cssSelector("input:nth-child(4)"), "adam" + i + "@gmail.com");
+        type(By.cssSelector("input:nth-child(5)"), "Koblenz");
+        type(By.cssSelector("input:nth-child(6)"), "torwart");
+        clickWithAction(By.cssSelector(".add_form__2rsm2 button"));
+    }
+
+    public int sizeOfContacts() {
+        if (isElementPresent(By.cssSelector(".contact-item_card__2SOIM"))){
+            return driver.findElements(By.cssSelector(".contact-item_card__2SOIM")).size();
+        } return 0;
+    }
+
+    public void removeContact() {
+        if (!isContactListEmpty()) {
+            click(By.cssSelector(".contact-item_card__2SOIM"));
+            click(By.xpath("//button[contains(.,'Remove')]"));
+        }
+    }
+
+    public boolean isContactListEmpty() {
+        return driver.findElements(By.cssSelector(".contact-item_card__2SOIM")).isEmpty();
+    }
+
+    public void clickOnSignOutButton() {
+        click(By.xpath("//button[contains(.,'Sign Out')]"));
+    }
+
+    public void pause(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isSignOutButtonPresent() {
+        return isElementPresent(By.xpath("//button[contains(.,'Sign Out')]"));
+    }
+
+    public void registration() {
+        click(By.xpath("//a[contains(.,'LOGIN')]"));
+        Assert.assertTrue(isElementPresent(By.cssSelector(".login_login__3EHKB")));
+        //fill registration form
+        fillLoginRegistrationForm(new User().setEmail("jesse+982@mail.ru").setPassword("Jesse_12345"));
+        //click on the button Registration
+        click(By.xpath("//button[contains(.,'Registration')]"));
+    }
+
+    public void fillLoginRegistrationForm(User user) {
+        type(By.cssSelector("[placeholder='Email']"), user.getEmail());
+        type(By.cssSelector("[placeholder='Password']"), user.getPassword());
     }
 }
