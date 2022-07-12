@@ -1,4 +1,4 @@
-package com.telrun.contacts;
+package com.telrun.contacts.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -8,8 +8,8 @@ public class LoginTests extends TestBase{
 
     @BeforeMethod
     public void ensurePrecondition() {
-        if (!app.isLoginLinkPresent()) {
-            app.clickOnSignOutButton();
+        if (!app.getHeader().isLoginLinkPresent()) {
+            app.getHeader().clickOnSignOutButton();
         }
     }
 
@@ -18,7 +18,7 @@ public class LoginTests extends TestBase{
         //click on Login link
         app.getUser().login();
         //assert the button SignOut
-        Assert.assertTrue(app.isSignOutButtonPresent());
+        Assert.assertTrue(app.getHeader().isSignOutButtonPresent());
     }
 
 }
