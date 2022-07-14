@@ -1,10 +1,11 @@
 package com.telrun.contacts.fw;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HelperBase {
 
@@ -53,4 +54,14 @@ public class HelperBase {
         element.click();
     }
 
+    public boolean isAlertPresent() {
+        Alert alert = new WebDriverWait(driver, 20).until(ExpectedConditions.alertIsPresent());
+        if (alert == null) {
+            return false;
+        }else {
+            driver.switchTo().alert();
+            alert.accept();
+        }
+        return true;
+    }
 }

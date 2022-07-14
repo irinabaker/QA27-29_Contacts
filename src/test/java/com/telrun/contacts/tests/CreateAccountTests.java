@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class CreateAccountTests extends TestBase{
+public class CreateAccountTests extends TestBase {
 
     //precondition: user should be logged out
     @BeforeMethod
@@ -22,6 +22,11 @@ public class CreateAccountTests extends TestBase{
         Assert.assertTrue(app.getHeader().isSignOutButtonPresent());
     }
 
-    
+    @Test
+    public void registrationNegativeTestWithInvalidEmail() {
+        app.getUser().registrationNegative();
+        Assert.assertTrue(app.getUser().isAlertPresent());
+    }
+
 
 }

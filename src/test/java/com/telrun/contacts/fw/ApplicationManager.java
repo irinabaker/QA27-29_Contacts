@@ -1,4 +1,4 @@
-package com.telrun.contacts;
+package com.telrun.contacts.fw;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +12,7 @@ public class ApplicationManager {
 
     UserHelper user;
     ContactHelper contact;
+    HeaderHelper header;
 
     public UserHelper getUser() {
         return user;
@@ -19,6 +20,10 @@ public class ApplicationManager {
 
     public ContactHelper getContact() {
         return contact;
+    }
+
+    public HeaderHelper getHeader() {
+        return header;
     }
 
     public void init() {
@@ -29,6 +34,7 @@ public class ApplicationManager {
 
         user = new UserHelper(driver);
         contact = new ContactHelper(driver);
+        header = new HeaderHelper(driver);
     }
 
     public boolean isComponentFormPresent() {
@@ -37,18 +43,6 @@ public class ApplicationManager {
 
     public void stop() {
         driver.quit();
-    }
-
-    public boolean isLoginLinkPresent() {
-        return isElementPresent(By.xpath("//a[contains(.,'LOGIN')]"));
-    }
-
-    public void clickOnSignOutButton() {
-        click(By.xpath("//button[contains(.,'Sign Out')]"));
-    }
-
-    public boolean isSignOutButtonPresent() {
-        return isElementPresent(By.xpath("//button[contains(.,'Sign Out')]"));
     }
 
 }

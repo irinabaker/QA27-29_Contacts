@@ -14,6 +14,14 @@ public class Contact {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
+
     public Contact setSureName(String sureName) {
         this.sureName = sureName;
         return this;

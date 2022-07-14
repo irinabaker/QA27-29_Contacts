@@ -20,6 +20,15 @@ public class UserHelper extends HelperBase{
         click(By.xpath("//button[contains(.,'Registration')]"));
     }
 
+    public void registrationNegative() {
+        click(By.xpath("//a[contains(.,'LOGIN')]"));
+        Assert.assertTrue(isElementPresent(By.cssSelector(".login_login__3EHKB")));
+        //fill registration form
+        fillLoginRegistrationForm(new User().setEmail("@mail").setPassword("Jesse_12345"));
+        //click on the button Registration
+        click(By.xpath("//button[contains(.,'Registration')]"));
+    }
+
     public void fillLoginRegistrationForm(User user) {
         type(By.cssSelector("[placeholder='Email']"), user.getEmail());
         type(By.cssSelector("[placeholder='Password']"), user.getPassword());
